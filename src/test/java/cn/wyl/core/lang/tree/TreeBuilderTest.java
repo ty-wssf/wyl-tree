@@ -1,6 +1,5 @@
 package cn.wyl.core.lang.tree;
 
-import cn.wyl.core.lang.tree.parser.DefaultNodeParser;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -40,16 +39,22 @@ public class TreeBuilderTest {
         all_menu1.add(new TreeNode1(6L, 3L, "module-B-menu-2", 0L));
     }
 
+    /**
+     * 测试使用默认节点对象 {@link TreeNode}
+     */
     @Test
     public void testBuilder1() {
         Predicate<TreeNode<Long>> predicate = longTree -> {
             return longTree.getId() == 1L;
         };
         TreeBuilder<TreeNode<Long>, Long> treeBuilder = TreeBuilder.of(predicate, TreeNode::setChildren);
-        List<TreeNode<Long>> list = treeBuilder.append(all_menu, new DefaultNodeParser<>()).build();
+        List<TreeNode<Long>> list = treeBuilder.append(all_menu).build();
         System.out.println(list);
     }
 
+    /**
+     * 测试使用自定义节点对象 {@link TreeNode1}
+     */
     @Test
     public void testBuilder2() {
         Predicate<TreeNode<Long>> predicate = longTree -> {

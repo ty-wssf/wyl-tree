@@ -1,6 +1,7 @@
 package cn.wyl.core.lang.tree;
 
 import cn.hutool.core.builder.Builder;
+import cn.wyl.core.lang.tree.parser.DefaultNodeParser;
 import cn.wyl.core.lang.tree.parser.NodeParser;
 
 import java.util.*;
@@ -50,6 +51,16 @@ public class TreeBuilder<T, ID> implements Builder<List<T>> {
      */
     public static <T, ID> TreeBuilder<T, ID> of(Predicate<TreeNode<ID>> rootPredicate, BiConsumer<T, List<T>> childConsumer) {
         return new TreeBuilder(rootPredicate, childConsumer);
+    }
+
+    /**
+     * 增加节点列表，增加的节点是不带子节点的
+     *
+     * @param list Bean列表
+     * @return this
+     */
+    public TreeBuilder<TreeNode<ID>, ID> append(List<TreeNode<ID>> list) {
+        return append((List<T>) list, new DefaultNodeParser());
     }
 
     /**
